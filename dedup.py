@@ -3,12 +3,6 @@ import os
 
 root_of_tests = "/home/dnunes/avocado/job-results/job-2018-06-11T14.35-4958f56"
 
-
-dirs = [os.path.join(root_of_tests, i) for i in os.listdir(root_of_tests) if
-        os.path.isdir(os.path.join(root_of_tests, i))
-        and not os.path.islink(os.path.join(root_of_tests, i))]
-
-
 result = dict()
 all_files = list()
 all_dirs = list()
