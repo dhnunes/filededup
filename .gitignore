@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+filededup.sublime-project
+filededup.sublime-workspace
