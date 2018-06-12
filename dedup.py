@@ -1,5 +1,6 @@
 import hashlib
 import os
+import sys
 
 
 def file_hasher(path):
@@ -14,7 +15,7 @@ def file_hasher(path):
         return(sha256.hexdigest())
 
 
-root_of_tests = "/home/dnunes/avocado/job-results/job-2018-06-11T14.35-4958f56"
+root_of_tests = sys.argv[1]
 
 result = dict()
 all_files = list()
@@ -26,5 +27,19 @@ for root, dirs, files in os.walk(root_of_tests):
 for file in all_files:
     result[file] = file_hasher(file)
 
-for key, value in result.items():
-    print(key, value)
+# for key, value in result.items():
+#     print(key, value)
+all_tests = list()
+for value in result.values():
+    all_tests.append(value)
+
+for test in all_tests:
+    print(all_tests.count(test))
+
+for test in all_tests:
+    if all_tests.count(test) > 1:
+        for key, value in result.items():
+            if value == test:
+                print(key)
+                print(test)
+                print(value)
