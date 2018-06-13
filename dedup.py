@@ -1,42 +1,10 @@
-import hashlib
-import os
 import sys
+from Library import filehasher
 import pdb
 
+file = filehasher.FileHasher(sys.argv[1])
 
-def file_walker(path: str) -> tuple:
-    all_files = list()
-
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            if os.path.getsize(os.path.join(root, file)):
-                all_files.append(os.path.join(root, file))
-
-    return(file_hash_association(tuple(all_files)))
-
-
-def file_hasher(file: str) -> str:
-    buffer_size = 65536
-    sha256_object = hashlib.sha256()
-    with open(file, 'rb') as file:
-        while True:
-            data = file.read(buffer_size)
-            if not data:
-                break
-            sha256_object.update(data)
-    return(sha256_object.hexdigest())
-
-
-def file_hash_association(hashed_files: tuple) -> dict:
-    results = dict()
-
-    for file in hashed_files:
-        results[file] = file_hasher(file)
-
-    return(results)
-
-
-print(file_walker(sys.argv[1]))
+print(file.file_walker())
 
 # all_tests = list()
 # for value in result.values():
