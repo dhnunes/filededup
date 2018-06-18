@@ -11,6 +11,10 @@ class FileHasher():
         pass
 
     def file_hash_association(self, hashed_files: tuple) -> dict:
+        """
+            Calls file hasher, associate a hash with file, and returns a dict
+            with files as keys and hashs as values
+        """
         results = dict()
 
         for file in hashed_files:
@@ -36,7 +40,7 @@ class FileHasher():
 
     def file_hasher(self, file: str) -> str:
         """
-
+            Opens and hashs a file using SHA 256.
         """
         buffer_size = 65536
         sha256_object = hashlib.sha256()

@@ -4,12 +4,20 @@ TODO DOCstring.
 docstring
 """
 
-import sys
-from Library import filehasher
+from Library.filehasher import FileHasher
+from Library.cmdargs import CmdArgs
 
-file = filehasher.FileHasher(sys.argv[1])
+#print(args)
+#print(os.path.isdir(args.dir_path))
 
-print(file.file_walker())
+
+args = CmdArgs.cmd_parsed_args()
+
+print(args)
+
+# file = FileHasher(args.dir_path)
+
+# print(file.file_walker())
 
 # all_tests = list()
 # for value in result.values():
