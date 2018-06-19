@@ -1,5 +1,5 @@
 """
-TODO docstring.
+This class is used for parse command line arguments using arparse.
 
 Docstring
 """
@@ -51,4 +51,4 @@ class CmdArgs():
 
         Docstring
         """
-        return cls().parser.parse_args()
+        return(vars(cls().parser.parse_args()))
