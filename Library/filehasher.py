@@ -1,13 +1,34 @@
+"""
+TODO docstring.
+
+Docstring
+"""
+
 import hashlib
 import os
 
 
 class FileHasher():
+    """
+    TODO docstring.
+
+    Docstring
+    """
 
     def __init__(self, dedup_root: str):
+        """
+        TODO docstring.
+
+        Docstring
+        """
         self.dedup_root = dedup_root
 
     def __repr__(self):
+        """
+        TODO docstring.
+
+        Docstring
+        """
         pass
 
     def file_hash_association(self, hashed_files: tuple) -> dict:
@@ -26,6 +47,7 @@ class FileHasher():
         """
             Given a path, returns a tuple with all non-empty files
         """
+        #print(os.path.isdir(args.dir_path))
         if root_path is None:
             root_path = self.dedup_root
 
@@ -51,3 +73,6 @@ class FileHasher():
                     break
                 sha256_object.update(data)
         return(sha256_object.hexdigest())
+
+    def file_find_duplicates(self, hashed_dict: dict):
+            final = { k:v for (k,v) in result.items() if list(result.values()).count(v) > 1}
