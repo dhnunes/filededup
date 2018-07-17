@@ -45,9 +45,21 @@ class FileHasher():
 
     def file_walker(self, root_path: str = None) -> tuple:
         """
-            Given a path, returns a tuple with all non-empty files
+        Walks through a directory tree.
+
+        Given a path ( usually as parameter in command line or directly if
+        using as a library ), this function will walk starting at that point
+        in directory tree and will return a list of non-empty, non-link
+        files ( if called as a Library ) or a tuple if called as a
+        standalone application.
+
+        Parameters:
+        root_path (str): The relative or absolute path to methd works.
+
+        Returns:
+        list: If called as Library
+        tuple: If called as cmd application
         """
-        #print(os.path.isdir(args.dir_path))
         if root_path is None:
             root_path = self.dedup_root
 
@@ -55,8 +67,11 @@ class FileHasher():
 
         for root, dirs, files in os.walk(root_path):
             for file in files:
-                if os.path.getsize(os.path.join(root, file)):
-                    all_files.append(os.path.join(root, file))
+                if os.path.islink(os.path.join(root, file)):
+                    continue
+                else:
+                    if os.path.getsize(os.path.join(root, file)):
+                        all_files.append(os.path.join(root, file))
 
         return(self.file_hash_association(tuple(all_files)))
 
