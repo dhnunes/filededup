@@ -6,6 +6,8 @@ Docstring
 
 import hashlib
 import os
+import progressbar
+import time
 
 
 class FileHasher():
@@ -38,9 +40,11 @@ class FileHasher():
         """
         results = dict()
 
-        for file in hashed_files:
+        for file in progressbar.progressbar(hashed_files):
             results[file] = self.file_hasher(file)
+            time.sleep(0.02)
 
+        print(len(results))
         return(results)
 
     def file_walker(self, root_path: str = None) -> tuple:
@@ -90,4 +94,4 @@ class FileHasher():
         return(sha256_object.hexdigest())
 
     def file_find_duplicates(self, hashed_dict: dict):
-            final = { k:v for (k,v) in result.items() if list(result.values()).count(v) > 1}
+        final = { k:v for (k,v) in result.items() if list(result.values()).count(v) > 1}
