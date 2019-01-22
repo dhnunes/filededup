@@ -34,7 +34,7 @@ class CmdArgs():
         Docstring
         """
         self.parser.add_argument("--dir-path", "-d", help="""Abosulte/Relative
-                                 path to directory. [Detaul: '.']""",
+                                 path to directory. [Default: '.']""",
                                  required=True, default=".", type=str,
                                  dest="dir_path")
 
