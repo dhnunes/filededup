@@ -13,4 +13,8 @@ setup(
     scripts=[
         "bin/pdedup",
     ],
+    install_requires=[
+        "tqdm==4.29.1",
+        "reprint==0.5.2",
+    ],
 )

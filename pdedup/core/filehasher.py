@@ -6,6 +6,11 @@ Docstring
 
 import hashlib
 import os
+import time
+from tqdm import tqdm
+from reprint import output
+import multiprocessing
+import pdb
 
 
 class FileHasher():
@@ -31,15 +36,29 @@ class FileHasher():
         """
         pass
 
-    def file_hash_association(self, hashed_files: tuple) -> dict:
+    def file_hash_association(self, files_path: tuple) -> dict:
         """
             Calls file hasher, associate a hash with file, and returns a dict
             with files as keys and hashs as values
         """
         results = dict()
+        pool = multiprocessing.Pool(processes=20)
 
-        for file in hashed_files:
-            results[file] = self.file_hasher(file)
+        with output(output_type="list", initial_len=5, interval=0) as output_list:
+            for file in files_path:
+
+                # pdb.set_trace()
+                print(f"Main Process ID {os.getpid()}")
+
+                results[file] = pool.apply(self.file_hasher, args=(file,))
+                # pool.map(self.file_hasher, files_path)
+
+            pool.close()
+        # for file in files_path:
+        # # Here comes the progress bar update
+        #     time.sleep(0.2)
+        #     #print(file)
+        #     results[file] = self.file_hasher(file)
 
         return(results)
 
@@ -79,6 +98,8 @@ class FileHasher():
         """
             Opens and hashs a file using SHA 256.
         """
+        print(multiprocessing.current_process())
+        print(f"Process ID {os.getpid()}")
         buffer_size = 65536
         sha256_object = hashlib.sha256()
         with open(file, 'rb') as file:
